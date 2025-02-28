@@ -1,0 +1,137 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = FUNewsManagementSystem
+build_property.RootNamespace = FUNewsManagementSystem
+build_property.ProjectDir = D:\STUDY\DEMO\Asssignment1\Asssignment1\FUNewsManagementSystem\FUNewsManagementSystem\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\STUDY\DEMO\Asssignment1\Asssignment1\FUNewsManagementSystem\FUNewsManagementSystem
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/Articles/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/Articles/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/Articles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/Categories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/Categories/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/Categories/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/Categories/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/Categories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/ManageAccounts/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlQWNjb3VudHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/ManageAccounts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlQWNjb3VudHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/NewsArticles/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c0FydGljbGVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/NewsArticles/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c0FydGljbGVzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/NewsArticles/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c0FydGljbGVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/NewsArticles/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c0FydGljbGVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/NewsArticles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c0FydGljbGVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/SystemAccounts/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/SystemAccounts/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/SystemAccounts/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/SystemAccounts/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/SystemAccounts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/SystemAccounts/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQWNjb3VudHNcTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/STUDY/DEMO/Asssignment1/Asssignment1/FUNewsManagementSystem/FUNewsManagementSystem/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-ui6efd05fm

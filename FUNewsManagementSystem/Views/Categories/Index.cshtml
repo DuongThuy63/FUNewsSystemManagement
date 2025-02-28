@@ -1,0 +1,191 @@
+﻿@model IEnumerable<BusinessObjects.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@* <h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryDesciption)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentCategory)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryDesciption)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentCategory.CategoryDesciption)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table> *@
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Bucket Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-teal-600 text-white min-h-screen">
+            <div class="p-4 text-center">
+                <h1 class="text-2xl font-bold">BUCKET ADMIN</h1>
+            </div>
+            <nav class="mt-10">
+                <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-teal-700" href="#">Dashboard</a>
+                <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-teal-700" href="#">Danh mục</a>
+                <div class="mt-4 dropdown relative">
+                    <p class="px-4 py-2.5 text-gray-300 cursor-pointer">Quản lý</p>
+                    <div class="dropdown-menu absolute hidden bg-teal-700 text-white mt-2 rounded shadow-lg">
+                        <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-teal-800" href="#">Quản lý Chuyên mục</a>
+                        <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-teal-800" href="#">Quản lý Người dùng</a>
+                    </div>
+                </div>
+                <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-teal-700 mt-4" href="#">Báo cáo - Thống kê</a>
+                <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-teal-700 mt-4" href="#">Cấu hình</a>
+            </nav>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 p-6">
+            <!-- Top Bar -->
+            <div class="flex justify-between items-center bg-white p-4 shadow-md">
+                <div class="flex space-x-4">
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <input class="border rounded px-4 py-2" placeholder="Search..." type="text" />
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center space-x-2">
+                            <img alt="User avatar" class="rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/bKbh4eAe7XWiOxwPrGAlRi62K3b1Ct2Uj9OY4xPK8-g.jpg" width="40" />
+                            <span>Guest</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Table -->
+            <div class="mt-6 bg-white p-4 rounded shadow-md">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold">DANH MỤC CHUYÊN MỤC</h2>
+                    <button class="bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-700">TẠO MỚI</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead>
+                            <tr>
+                                <th class="py-2 px-4 bg-teal-600 text-white">CATEGORYNAME</th>
+                                <th class="py-2 px-4 bg-teal-600 text-white">SUBCATEGORYSTATUS</th>
+                                <th class="py-2 px-4 bg-teal-600 text-white">SHOWMENUSTATUS</th>
+                                <th class="py-2 px-4 bg-teal-600 text-white">STATUS</th>
+                                <th class="py-2 px-4 bg-teal-600 text-white">PARENTCATEGORY</th>
+                                <th class="py-2 px-4 bg-teal-600 text-white">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="py-2 px-4">Giới thiệu</td>
+                                <td class="py-2 px-4 text-center"><input disabled="" type="checkbox" /></td>
+                                <td class="py-2 px-4 text-center"><input disabled="" type="checkbox" /></td>
+                                <td class="py-2 px-4 text-center">1</td>
+                                <td class="py-2 px-4 text-center">1</td>
+                                <td class="py-2 px-4 text-center">
+                                    <a class="text-blue-500 hover:underline" href="#">Edit</a> |
+                                    <a class="text-blue-500 hover:underline" href="#">Details</a> |
+                                    <a class="text-red-500 hover:underline" href="#">Delete</a>
+                                </td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-2 px-4">Lịch sử hình thành</td>
+                                <td class="py-2 px-4 text-center"><input disabled="" type="checkbox" /></td>
+                                <td class="py-2 px-4 text-center"><input disabled="" type="checkbox" /></td>
+                                <td class="py-2 px-4 text-center">1</td>
+                                <td class="py-2 px-4 text-center">1</td>
+                                <td class="py-2 px-4 text-center">
+                                    <a class="text-blue-500 hover:underline" href="#">Edit</a> |
+                                    <a class="text-blue-500 hover:underline" href="#">Details</a> |
+                                    <a class="text-red-500 hover:underline" href="#">Delete</a>
+                                </td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-2 px-4">Chức năng nhiệm vụ</td>
+                                <td class="py-2 px-4 text-center"><input disabled="" type="checkbox" /></td>
+                                <td class="py-2 px-4 text-center"><input disabled="" type="checkbox" /></td>
+                                <td class="py-2 px-4 text-center">1</td>
+                                <td class="py-2 px-4 text-center">1</td>
+                                <td class="py-2 px-4 text-center">
+                                    <a class="text-blue-500 hover:underline" href="#">Edit</a> |
+                                    <a class="text-blue-500 hover:underline" href="#">Details</a> |
+                                    <a class="text-red-500 hover:underline" href="#">Delete</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4">Sơ đồ Tổ chức</td>
+                                <td class="py-2 px-4 text-center"><input disabled="" type="checkbox" /></td>
+                                <td class="py-2 px-4 text-center"><input disabled="" type="checkbox" /></td>
+                                <td class="py-2 px-4 text-center">1</td>
+                                <td class="py-2 px-4 text-center">1</td>
+                                <td class="py-2 px-4 text-center">
+                                    <a class="text-blue-500 hover:underline" href="#">Edit</a> |
+                                    <a class="text-blue-500 hover:underline" href="#">Details</a> |
+                                    <a class="text-red-500 hover:underline" href="#">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<BusinessObjects.NewsArticle>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Headline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.NewsStatus)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Headline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsStatus)
+            </td>
+     
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryDesciption)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedById)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.NewsArticleId">Details</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
