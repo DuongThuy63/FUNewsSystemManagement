@@ -5033,11 +5033,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\BusinessObjects\\BusinessObjects.csproj",
+      "projectUniqueName": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\BusinessObjects\\BusinessObjects.csproj",
       "projectName": "BusinessObjects",
-      "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\BusinessObjects\\BusinessObjects.csproj",
+      "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\BusinessObjects\\BusinessObjects.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\BusinessObjects\\obj\\",
+      "outputPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\BusinessObjects\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

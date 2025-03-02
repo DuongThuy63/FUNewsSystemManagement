@@ -10,5 +10,10 @@ namespace Services
     public interface ICategoryService
     {
         List<Category> GetCategories();
+        void CreateCategory(Category p);
+        void DeleteCategory(Category p);
+        void UpdateCategory(Category p);
+
+        Category GetCategoryById(short id);
     }
 }

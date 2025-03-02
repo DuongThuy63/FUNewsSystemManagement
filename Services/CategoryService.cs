@@ -21,5 +21,27 @@ namespace Services
         {
             return iCategoryRepository.GetCategories();
         }
+
+        public void DeleteCategory(Category p)
+        {
+            iCategoryRepository.DeleteCategory(p);
+        }
+
+        public Category GetCategoryById(short id)
+        {
+            return iCategoryRepository.GetCategoryById(id);
+        }
+
+        
+        public void CreateCategory(Category p)
+        {
+            iCategoryRepository.SaveCategory(p);
+        }
+
+        public void UpdateCategory(Category p)
+        {
+            iCategoryRepository.UpdateCategory(p);
+        }
+
     }
 }

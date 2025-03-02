@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-@* <h1>Index</h1>
+ <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ParentCategory.CategoryDesciption)
+                @Html.DisplayFor(modelItem => item.ParentCategoryId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
@@ -50,8 +50,8 @@
         </tr>
 }
     </tbody>
-</table> *@
-<html lang="en">
+</table> 
+@* <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -188,4 +188,4 @@
         </div>
     </div>
 </body>
-</html>
+</html> *@

@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
 using FUNewsManagementSystem.Data;
 using Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FUNewsManagementSystem.Controllers
 {
+   
     public class CategoriesController : Controller
     {
         private readonly FUNewsManagementSystemContext _context;
@@ -22,27 +24,21 @@ namespace FUNewsManagementSystem.Controllers
 
         // GET: Categories
         public async Task<IActionResult> Index()
-        {
-            string userId = HttpContext.Session.GetString("UserId");
-            string username = HttpContext.Session.GetString("Username");
-            if (HttpContext.Session.GetString("UserId") == null)
-            {
-
-                return RedirectToAction("Login", "Account");
-            }
-            var myStoreContext = _contextCategory.GetCategories();
-            return View(myStoreContext.ToList());
+        {  
+                var categories = _contextCategory.GetCategories();
+                return View(categories.ToList());
+            
         }
 
         // GET: Categories/Details/5
-        public async Task<IActionResult> Details(short? id)
+        public async Task<IActionResult> Details(short id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = _contextCategory.GetCategories;
+            var product = _contextCategory.GetCategoryById(id);
             if (product == null)
             {
                 return NotFound();

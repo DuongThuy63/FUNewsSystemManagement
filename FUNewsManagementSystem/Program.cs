@@ -5,9 +5,11 @@ using Services;
 using System.Globalization;
 using Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using BusinessObjects;
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddDbContext<FUNewsManagementSystemContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MyStockDB")));
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -16,6 +18,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Home/AccessDenied"; // Trang từ chối truy cập
         options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Thời gian hết hạn cookie
     });
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAccountService, AccountService>();
@@ -24,12 +34,16 @@ builder.Services.AddScoped<INewsArticleService, NewsArticleService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddSession(options =>
 {
-options.IdleTimeout = TimeSpan.FromMinutes(20); // Set session timeout
-options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true; // Ensure session cookie is always created
+    options.IdleTimeout = TimeSpan.FromMinutes(30); 
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+    options.Cookie.SameSite = SameSiteMode.Lax; 
 });
 
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -43,10 +57,12 @@ builder.Services.AddAuthorization();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseSession();
+
 app.UseRouting();
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",

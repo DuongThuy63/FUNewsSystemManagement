@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Fn0OG+mpMSc=",
+  "dgSpecHash": "RjNmy/yWWnE=",
   "success": true,
-  "projectFilePath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\Repositories\\Repositories.csproj",
+  "projectFilePath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\Repositories\\Repositories.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

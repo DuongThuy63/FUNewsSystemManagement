@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\Repositories\\Repositories.csproj": {}
+    "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\Repositories\\Repositories.csproj": {}
   },
   "projects": {
-    "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\BusinessObjects\\BusinessObjects.csproj": {
+    "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\BusinessObjects\\BusinessObjects.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\BusinessObjects\\BusinessObjects.csproj",
+        "projectUniqueName": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\BusinessObjects\\BusinessObjects.csproj",
         "projectName": "BusinessObjects",
-        "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\BusinessObjects\\BusinessObjects.csproj",
+        "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\BusinessObjects\\BusinessObjects.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\BusinessObjects\\obj\\",
+        "outputPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\BusinessObjects\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -91,14 +91,14 @@
         }
       }
     },
-    "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\DataAccessObjects\\DataAccessObjects.csproj": {
+    "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\DataAccessObjects\\DataAccessObjects.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\DataAccessObjects\\DataAccessObjects.csproj",
+        "projectUniqueName": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\DataAccessObjects\\DataAccessObjects.csproj",
         "projectName": "DataAccessObjects",
-        "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\DataAccessObjects\\DataAccessObjects.csproj",
+        "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\DataAccessObjects\\DataAccessObjects.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\DataAccessObjects\\obj\\",
+        "outputPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\DataAccessObjects\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -119,8 +119,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\BusinessObjects\\BusinessObjects.csproj": {
-                "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\BusinessObjects\\BusinessObjects.csproj"
+              "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\BusinessObjects\\BusinessObjects.csproj": {
+                "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\BusinessObjects\\BusinessObjects.csproj"
               }
             }
           }
@@ -182,14 +182,14 @@
         }
       }
     },
-    "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\Repositories\\Repositories.csproj": {
+    "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\Repositories\\Repositories.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\Repositories\\Repositories.csproj",
+        "projectUniqueName": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\Repositories\\Repositories.csproj",
         "projectName": "Repositories",
-        "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\Repositories\\Repositories.csproj",
+        "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\Repositories\\Repositories.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\Repositories\\obj\\",
+        "outputPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\Repositories\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -210,11 +210,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\BusinessObjects\\BusinessObjects.csproj": {
-                "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\BusinessObjects\\BusinessObjects.csproj"
+              "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\BusinessObjects\\BusinessObjects.csproj": {
+                "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\BusinessObjects\\BusinessObjects.csproj"
               },
-              "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\DataAccessObjects\\DataAccessObjects.csproj": {
-                "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsManagementSystem\\DataAccessObjects\\DataAccessObjects.csproj"
+              "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\DataAccessObjects\\DataAccessObjects.csproj": {
+                "projectPath": "D:\\STUDY\\DEMO\\Asssignment1\\Asssignment1\\FUNewsSystemManagement\\DataAccessObjects\\DataAccessObjects.csproj"
               }
             }
           }

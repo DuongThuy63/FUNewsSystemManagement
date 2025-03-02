@@ -11,6 +11,8 @@ using Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using System.Configuration;
 
 namespace FUNewsManagementSystem.Controllers
 {
@@ -18,10 +20,12 @@ namespace FUNewsManagementSystem.Controllers
     {
         private readonly FUNewsManagementSystemContext _context;
         private readonly IAccountService _contextAccount;
-        public SystemAccountsController(IAccountService contextAccount)
+        private readonly IConfiguration _configuration;
+        public SystemAccountsController(IAccountService contextAccount, IConfiguration configuration)
         {
             _contextAccount = contextAccount;
-            
+            _configuration = configuration;
+
         }
         [HttpGet]
         public IActionResult Login()
@@ -29,8 +33,8 @@ namespace FUNewsManagementSystem.Controllers
             return View(); 
         }
         [HttpPost]
-        public IActionResult Login(SystemAccount model)
-        {
+        public async Task<IActionResult> Login(SystemAccount model)
+        {/*
             if (ModelState.IsValid)
             {
                 var user = _contextAccount.GetAccountByEmail(model.AccountEmail);
@@ -41,18 +45,20 @@ namespace FUNewsManagementSystem.Controllers
                     // Lưu thông tin đăng nhập vào session
                     HttpContext.Session.SetString("UserId", user.AccountId.ToString());
                     HttpContext.Session.SetString("Username", user.AccountName);
-                    HttpContext.Session.SetString("UserRole", user.AccountRole?.ToString() ?? "0");
-                    
-
+                    //HttpContext.Session.SetString("UserRole", user.AccountRole?.ToString() ?? "0");
+                    HttpContext.Session.SetInt32("UserRole", user.AccountRole ?? 0);
+                    Console.WriteLine("UserRole in Session: " + HttpContext.Session.GetInt32("UserRole"));
+                    Console.WriteLine("UserRole Set: " + user.AccountRole);
                     // Kiểm tra quyền (Role)
                     if (user.AccountRole == 2)
                     {
                         return RedirectToAction("Index", "Articles"); 
                     }
-                    else if (user.AccountRole == 1)
+                    else if (user.AccountRole == 3)
                     {
-                        return RedirectToAction("Index", "SystemAccounts"); 
+                        return RedirectToAction("Dashboard", "Admin");; 
                     }
+                   
                 }
                 else
                 {
@@ -60,7 +66,42 @@ namespace FUNewsManagementSystem.Controllers
                 }
             }
 
-            return View(model);
+            return View(model);*/
+
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+
+
+            }
+
+            var adminEmail = _configuration["AdminAccount:Email"];
+            var adminPassword = _configuration["AdminAccount:Password"];
+            if (model.AccountEmail == adminEmail && model.AccountPassword == adminPassword)
+            {
+                HttpContext.Session.SetString("UserId", "0");
+                HttpContext.Session.SetString("UserName", "Admin");
+                HttpContext.Session.SetString("Role", "Admin");
+                return RedirectToAction("Index", "Home");
+            }
+            var user = _contextAccount.GetAccountByEmail(model.AccountEmail);
+            HttpContext.Session.SetString("UserId", user.AccountId.ToString());
+            HttpContext.Session.SetString("UserName", user.AccountName);
+            HttpContext.Session.SetString("Role", user.AccountRole == 2 ? "Lecturer" : "Staff");
+
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.AccountName),
+                new Claim(ClaimTypes.Email, user.AccountEmail),
+                new Claim(ClaimTypes.Role, user.AccountRole == 2 ? "Lecturer" : "Staff")
+            };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: SystemAccounts
