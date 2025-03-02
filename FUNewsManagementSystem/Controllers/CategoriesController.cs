@@ -50,7 +50,7 @@ namespace FUNewsManagementSystem.Controllers
         // GET: Categories/Create
         public IActionResult Create()
         {
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryDesciption");
+            ViewData["ParentCategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryName");
             return View();
         }
 
@@ -63,28 +63,28 @@ namespace FUNewsManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                _contextCategory.CreateCategory(category);
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryDesciption", category.ParentCategoryId);
+            ViewData["ParentCategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryName", category.ParentCategoryId);
             return View(category);
         }
 
         // GET: Categories/Edit/5
-        public async Task<IActionResult> Edit(short? id)
+        public async Task<IActionResult> Edit(short id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category.FindAsync(id);
+            var category = _contextCategory.GetCategoryById(id);
             if (category == null)
             {
                 return NotFound();
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryDesciption", category.ParentCategoryId);
+            ViewData["ParentCategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryName", category.ParentCategoryId);
             return View(category);
         }
 
@@ -104,10 +104,9 @@ namespace FUNewsManagementSystem.Controllers
             {
                 try
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
+                    _contextCategory.UpdateCategory(category);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception)
                 {
                     if (!CategoryExists(category.CategoryId))
                     {
@@ -120,7 +119,7 @@ namespace FUNewsManagementSystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryDesciption", category.ParentCategoryId);
+            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", category.ParentCategoryId);
             return View(category);
         }
 

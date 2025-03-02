@@ -79,6 +79,7 @@ public partial class FunewsManagementContext : DbContext
             entity.Property(e => e.NewsSource).HasMaxLength(400);
             entity.Property(e => e.NewsTitle).HasMaxLength(400);
             entity.Property(e => e.UpdatedById).HasColumnName("UpdatedByID");
+            
 
             entity.HasOne(d => d.Category).WithMany(p => p.NewsArticles)
                 .HasForeignKey(d => d.CategoryId)

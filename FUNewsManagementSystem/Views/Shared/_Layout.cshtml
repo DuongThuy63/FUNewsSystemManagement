@@ -42,7 +42,7 @@
                         @if (Context.Session.GetString("UserId") != null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Index">Articles</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="NewsArticles" asp-action="Index">Articles</a>
                             </li>
 
                             @if (Context.Session.GetString("Role") == "Admin")
@@ -52,7 +52,7 @@
                                 </li>
                             }
 
-                            @if (Context.Session.GetString("Role") == "Admin")
+                            @if (Context.Session.GetString("Role") == "Staff")
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-controller="Categories" asp-action="Index">Manage Categories</a>

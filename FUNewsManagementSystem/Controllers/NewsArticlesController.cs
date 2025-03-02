@@ -9,6 +9,7 @@ using BusinessObjects;
 using FUNewsManagementSystem.Data;
 using Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace FUNewsManagementSystem.Controllers
 {
@@ -18,14 +19,14 @@ namespace FUNewsManagementSystem.Controllers
         private readonly FUNewsManagementSystemContext _context;
         private readonly INewsArticleService _contextArticle;
         private readonly ICategoryService _contextCategory;
-
+        private readonly IAccountService _contextAccount;
         public NewsArticlesController(INewsArticleService contextArticle, ICategoryService contextCategory)
         {
             _contextArticle = contextArticle;
             _contextCategory = contextCategory;
         }
 
-
+        [Authorize(Roles = "Admin,Lecturer,Staff")]
         // GET: NewsArticles
         public async Task<IActionResult> Index()
         {
@@ -33,18 +34,9 @@ namespace FUNewsManagementSystem.Controllers
             {
                 return RedirectToAction("Login", "SystemAccounts");
             }
-
-            int? userRole = HttpContext.Session.GetInt32("UserRole");
-
-            if (userRole == 1 || userRole == 2 || userRole == 3) // Lecturer, Admin, Staff
-            {
                 var articles = _contextArticle.GetArticles();
                 return View(articles.ToList());
-            }
-            else
-            {
-                return Forbid(); // Không có quyền truy cập
-            }
+            
         }
 
         // GET: NewsArticles/Details/5
@@ -68,28 +60,34 @@ namespace FUNewsManagementSystem.Controllers
         // GET: NewsArticles/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryDesciption");
-            ViewData["CreatedById"] = new SelectList(_context.SystemAccount, "AccountId", "AccountId");
+            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryDesciption");
+            
             return View();
         }
 
         // POST: NewsArticles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = "Admin,Staff")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NewsArticleId,NewsTitle,Headline,CreatedDate,NewsContent,NewsSource,CategoryId,NewsStatus,CreatedById,UpdatedById,ModifiedDate")] NewsArticle newsArticle)
+        public async Task<IActionResult> Create([Bind("NewsArticleId, NewsTitle,Headline,NewsContent,NewsSource,CategoryId,NewsStatus,CreatedByID,CreatedDate,ModifiedDate")] NewsArticle newsArticle)
         {
+            newsArticle.CreatedById = 3;
+            newsArticle.CreatedDate = DateTime.Now;
             if (ModelState.IsValid)
             {
-                _context.Add(newsArticle);
-                await _context.SaveChangesAsync();
+                _contextArticle.SaveArticle(newsArticle);
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryDesciption", newsArticle.CategoryId);
-            ViewData["CreatedById"] = new SelectList(_context.SystemAccount, "AccountId", "AccountId", newsArticle.CreatedById);
+
+
+            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryDesciption", newsArticle.CategoryId);
             return View(newsArticle);
         }
+
 
         // GET: NewsArticles/Edit/5
         public async Task<IActionResult> Edit(string id)

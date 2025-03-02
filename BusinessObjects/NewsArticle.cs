@@ -5,7 +5,7 @@ namespace BusinessObjects;
 
 public partial class NewsArticle
 {
-   
+    
     public string NewsArticleId { get; set; } = null!;
 
     public string? NewsTitle { get; set; }

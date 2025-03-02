@@ -30,9 +30,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="IsActive" class="control-label"></label>
-                <input asp-for="IsActive" class="form-control" />
+                <div>
+                    <label>
+                        <input type="radio" asp-for="IsActive" value="true" checked="@(Model.IsActive ?? false ? "checked" : null)" /> True
+                    </label>
+                    <label>
+                        <input type="radio" asp-for="IsActive" value="false" checked="@(Model.IsActive ?? false ? null : "checked")" /> False
+                    </label>
+                </div>
                 <span asp-validation-for="IsActive" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

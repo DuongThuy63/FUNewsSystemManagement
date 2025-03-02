@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+<h2>Admin Dashboard</h2>
+
+<p>@ViewBag.Message</p>
+
+<ul>
+    @foreach (var item in ViewBag.Pages)
+    {
+        <li><a href="@item.Url">@item.Name</a></li>
+    }
+</ul>

@@ -5,7 +5,7 @@
 
 <h1>Create</h1>
 
-<h4>NewsArticle</h4>
+<h4>Categories</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -22,15 +22,25 @@
                 <span asp-validation-for="CategoryDesciption" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IsActive" class="control-label"></label>
-                <input asp-for="IsActive" class="form-control" />
-                <span asp-validation-for="IsActive" class="text-danger"></span>
+                <label asp-for="ParentCategoryId" class="control-label"></label>
+                <select asp-for="ParentCategoryId" name="ParentCategoryId" class="form-control" asp-items="@(ViewBag.ParentCategoryId ?? new SelectList(Enumerable.Empty<SelectListItem>()))">
+                    <option value="">-- Chọn danh mục --</option>
+                </select>
+
             </div>
             <div class="form-group">
-                <label asp-for="ParentCategoryId" class="control-label"></label>
-                <input asp-for="ParentCategoryId" class="form-control" />
-                <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
+                <label asp-for="IsActive" class="control-label"></label>
+                <div>
+                    <label>
+                        <input type="radio" asp-for="IsActive" value="true" /> True
+                    </label>
+                    <label>
+                        <input type="radio" asp-for="IsActive" value="false" /> False
+                    </label>
+                </div>
+                <span asp-validation-for="IsActive" class="text-danger"></span>
             </div>
+         
            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

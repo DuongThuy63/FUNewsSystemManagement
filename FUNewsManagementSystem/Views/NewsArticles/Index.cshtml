@@ -77,13 +77,18 @@
                 @Html.DisplayFor(modelItem => item.Category.CategoryDesciption)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy.AccountId)
+                @Html.DisplayFor(modelItem => item.CreatedById)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.NewsArticleId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.NewsArticleId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.NewsArticleId">Delete</a>
-            </td>
+
+                @if (Context.Session.GetString("Role") == "Staff" || Context.Session.GetString("Role") == "Admin")
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.NewsArticleId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.NewsArticleId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.NewsArticleId">Delete</a>
+                    </td>
+                }
+           
         </tr>
 }
     </tbody>
