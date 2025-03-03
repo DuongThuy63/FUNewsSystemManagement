@@ -1,17 +1,22 @@
 ﻿@model BusinessObjects.SystemAccount
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
-<h4>SystemAccount</h4>
+<h4>Account Profile</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AccountId" class="control-label"></label>
+                <input asp-for="AccountId" class="form-control" />
+                <span asp-validation-for="AccountId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="AccountName" class="control-label"></label>
                 <input asp-for="AccountName" class="form-control" />
@@ -24,9 +29,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="AccountRole" class="control-label"></label>
-                <select asp-for="AccountRole" class="form-control"
-                        asp-items="@(new SelectList(ViewBag.Roles, "Value", "Text"))">
-                </select>
+                <input asp-for="AccountRole" class="form-control" />
                 <span asp-validation-for="AccountRole" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,12 +38,8 @@
                 <span asp-validation-for="AccountPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <span class="text-success" style="margin-left: 10px;">@ViewBag.SuccessMessage</span>
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-            
-                
-            
         </form>
     </div>
 </div>

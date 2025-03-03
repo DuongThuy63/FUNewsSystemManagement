@@ -16,6 +16,6 @@ namespace Services
         List<SystemAccount> GetAccounts();
         void SaveAccount(SystemAccount p);
         void DeleteAccount(SystemAccount p);
-        void UpdateAccount(SystemAccount p, SystemAccount allowPasswordChange);
+        void UpdateAccount(SystemAccount p);
     }
 }

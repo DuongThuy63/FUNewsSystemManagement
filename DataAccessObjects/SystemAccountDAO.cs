@@ -35,7 +35,7 @@ namespace DataAccessObjects
             return listAccounts;
         }
 
-        public static void UpdateAccount(SystemAccount p, SystemAccount loggedInUser)
+        public static void UpdateAccount(SystemAccount p)
         {
             try
             {
@@ -47,20 +47,9 @@ namespace DataAccessObjects
                     throw new Exception("Tài khoản không tồn tại!");
                 }
 
-                // 🔹 Admin (Role 1) có thể chỉnh sửa thông tin, nhưng không thay đổi mật khẩu
-                if (loggedInUser.AccountRole == 1)
-                {
-                    p.AccountPassword = existingAccount.AccountPassword; // Giữ nguyên mật khẩu
-                }
 
-                // 🔹 Lecturer (Role 2) chỉ được thay đổi mật khẩu của chính họ
-                if (loggedInUser.AccountRole == 2 && loggedInUser.AccountId == p.AccountId)
-                {
-                    existingAccount.AccountPassword = p.AccountPassword;
-                }
-
-                // Cập nhật các thông tin khác
-
+                p.AccountPassword = existingAccount.AccountPassword; // Giữ nguyên mật khẩu
+                
                 existingAccount.AccountName = p.AccountName;
                 existingAccount.AccountEmail = p.AccountEmail;
                 existingAccount.AccountRole = p.AccountRole;

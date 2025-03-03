@@ -18,8 +18,8 @@ namespace Repositories
 
         public List<SystemAccount> GetAccounts() => SystemAccountDAO.GetAccounts();
 
-        public void UpdateAccount(SystemAccount p, SystemAccount allowPasswordChange)
-        => SystemAccountDAO.UpdateAccount(p, allowPasswordChange);
+        public void UpdateAccount(SystemAccount p)
+        => SystemAccountDAO.UpdateAccount(p);
 
 
         public void DeleteAccount(SystemAccount p) => SystemAccountDAO.DeleteAccount(p);

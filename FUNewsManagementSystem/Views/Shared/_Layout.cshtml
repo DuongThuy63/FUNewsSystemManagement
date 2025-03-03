@@ -45,7 +45,7 @@
                             @if (Context.Session.GetString("Role") == "Staff" || Context.Session.GetString("Role") == "Lecturer")
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="SystemAccounts" asp-action="Details">My Account</a>
+                                    <a class="nav-link text-dark" asp-controller="Account" asp-action="Details">My Account</a>
                                 </li>
                             }
 

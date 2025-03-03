@@ -121,6 +121,11 @@ namespace FUNewsManagementSystem.Controllers
         // GET: SystemAccounts/Create
         public IActionResult Create()
         {
+            ViewBag.Roles = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "1", Text = "1" },
+                new SelectListItem { Value = "2", Text = "2" }
+            };
             return View();
         }
 
@@ -129,13 +134,19 @@ namespace FUNewsManagementSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AccountId,AccountName,AccountEmail,AccountRole,AccountPassword")] SystemAccount systemAccount)
+        public async Task<IActionResult> Create([Bind("AccountName,AccountEmail,AccountRole,AccountPassword")] SystemAccount systemAccount)
         {
             if (ModelState.IsValid)
             {
+                short newAccountId = _contextAccount.GetAccounts().Any()
+           ? (short)(_contextAccount.GetAccounts().Max(a => a.AccountId) + 1)
+           : (short)1;
+                systemAccount.AccountId = newAccountId;
                 _contextAccount.SaveAccount(systemAccount);
+               
                 return RedirectToAction(nameof(Index));
             }
+
             return View(systemAccount);
         }
 
@@ -152,6 +163,11 @@ namespace FUNewsManagementSystem.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Roles = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "1", Text = "1" },
+                new SelectListItem { Value = "2", Text = "2" }
+            };
             return View(product);
         }
 
@@ -166,18 +182,12 @@ namespace FUNewsManagementSystem.Controllers
             {
                 return NotFound();
             }
-
-            var loggedInUser = GetCurrentUser(); 
-            if (loggedInUser == null)
-            {
-                return Unauthorized();
-            }
-
+           
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _contextAccount.UpdateAccount(systemAccount, loggedInUser);
+                    _contextAccount.UpdateAccount(systemAccount);
                 }
                 catch (Exception)
                 {
@@ -190,6 +200,7 @@ namespace FUNewsManagementSystem.Controllers
                         throw;
                     }
                 }
+                
                 return RedirectToAction(nameof(Index));
             }
             return View(systemAccount);

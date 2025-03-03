@@ -41,9 +41,9 @@ namespace Services
             iAccountRepository.SaveAccount(p) ;
         }
 
-        public void UpdateAccount(SystemAccount p, SystemAccount allowPasswordChange)
+        public void UpdateAccount(SystemAccount p)
         {
-            iAccountRepository.UpdateAccount(p, allowPasswordChange);
+            iAccountRepository.UpdateAccount(p);
         }
     }
 }

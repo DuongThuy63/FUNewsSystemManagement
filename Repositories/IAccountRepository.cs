@@ -11,7 +11,7 @@ namespace Repositories
     {
          void SaveAccount(SystemAccount p);
         void DeleteAccount(SystemAccount p);
-        void UpdateAccount(SystemAccount p, SystemAccount allowPasswordChange);
+        void UpdateAccount(SystemAccount p);
         SystemAccount GetAccountById(short accountID);
 
         SystemAccount GetAccountByEmail(string accountEmail);
