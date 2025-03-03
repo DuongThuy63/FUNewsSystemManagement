@@ -7,9 +7,29 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+@if (Context.Session.GetString("Role") == "Staff" || Context.Session.GetString("Role") == "Admin")
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <div class="d-flex justify-content-end mb-2">
+        <form asp-action="MyArticles" method="get">
+            <button type="submit" class="btn btn-primary">My Article</button>
+        </form>
+    </div>
+
+    <form asp-action="SearchByDate" method="get">
+        <label for="startDate">Từ ngày:</label>
+        <input type="date" id="startDate" name="startDate" value="@ViewBag.StartDate" required>
+
+        <label for="endDate">Đến ngày:</label>
+        <input type="date" id="endDate" name="endDate" value="@ViewBag.EndDate" required>
+
+        <button type="submit">Tìm kiếm</button>
+    </form>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -21,10 +41,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NewsContent)
-            </th>
+            </th>           
             <th>
                 @Html.DisplayNameFor(model => model.NewsSource)
             </th>
@@ -58,9 +75,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NewsContent)
-            </td>
+         
             <td>
                 @Html.DisplayFor(modelItem => item.NewsSource)
             </td>
@@ -77,16 +92,23 @@
                 @Html.DisplayFor(modelItem => item.Category.CategoryDesciption)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreatedById)
+                @(item.CreatedBy != null ? item.CreatedBy.AccountName : "Unknown")
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.NewsArticleId">Details</a> 
             </td>
 
-                @if (Context.Session.GetString("Role") == "Staff" || Context.Session.GetString("Role") == "Admin")
+                @if (Context.Session.GetString("Role") == "Staff" || Context.Session.GetString("Role") == "Admin" )
                 {
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.NewsArticleId">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.NewsArticleId">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.NewsArticleId">Delete</a>
                     </td>
+                }
+                else
+                {
+                    <a asp-action="Details" asp-route-id="@item.NewsArticleId">Details</a>
                 }
            
         </tr>

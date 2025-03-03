@@ -35,38 +35,6 @@ namespace FUNewsManagementSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(SystemAccount model)
         {
-           /* if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var adminEmail = _configuration["AdminAccount:Email"];
-            var adminPassword = _configuration["AdminAccount:Password"];
-            if (model.AccountEmail == adminEmail && model.AccountPassword == adminPassword)
-            {
-                HttpContext.Session.SetString("UserId", "0");
-                HttpContext.Session.SetString("UserName", "Admin");
-                HttpContext.Session.SetString("Role", "Admin");
-                return RedirectToAction("Index", "Home");
-            }
-            var user = _contextAccount.GetAccountByEmail(model.AccountEmail);
-            HttpContext.Session.SetString("UserId", user.AccountId.ToString());
-            HttpContext.Session.SetString("UserName", user.AccountName);
-            HttpContext.Session.SetString("Role", user.AccountRole == 2 ? "Lecturer" : "Staff");
-
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.AccountName),
-                new Claim(ClaimTypes.Email, user.AccountEmail),
-                new Claim(ClaimTypes.Role, user.AccountRole == 2 ? "Lecturer" : "Staff")
-            };
-
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-            return RedirectToAction("Index", "Home");*/
-     
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -199,7 +167,7 @@ namespace FUNewsManagementSystem.Controllers
                 return NotFound();
             }
 
-            var loggedInUser = GetCurrentUser(); // Lấy thông tin user đang đăng nhập
+            var loggedInUser = GetCurrentUser(); 
             if (loggedInUser == null)
             {
                 return Unauthorized();
@@ -234,10 +202,10 @@ namespace FUNewsManagementSystem.Controllers
 
             if (string.IsNullOrEmpty(loggedInUserId))
             {
-                return null; // Không có user đăng nhập
+                return null; 
             }
 
-            // 🔹 Lấy đầy đủ thông tin user từ database
+            
             return _contextAccount.GetAccountById(short.Parse(loggedInUserId));
         }
 
@@ -278,6 +246,10 @@ namespace FUNewsManagementSystem.Controllers
             return (tmp != null) ? true : false;
         }
 
-        
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear(); // Clear session data
+            return RedirectToAction("Login");
+        }
     }
 }

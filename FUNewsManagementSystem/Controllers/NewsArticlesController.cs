@@ -36,11 +36,14 @@ namespace FUNewsManagementSystem.Controllers
             {
                 return RedirectToAction("Login", "SystemAccounts");
             }
-                var articles = _contextArticle.GetArticles();
-                return View(articles.ToList());
+            var articles = _contextArticle.GetArticles();
+                
+                
+            return View(articles.ToList());
             
         }
 
+        [Authorize(Roles = "Admin,Lecturer,Staff")]
         // GET: NewsArticles/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -307,6 +310,43 @@ namespace FUNewsManagementSystem.Controllers
                 }
             }
             return RedirectToAction(nameof(Index));
+        }
+        [Authorize(Roles = "Admin,Staff")]
+        public IActionResult SearchByDate(DateTime startDate, DateTime endDate)
+        {
+            
+            if (startDate == default || endDate == default)
+            {
+                ModelState.AddModelError("", "Vui lòng nhập đầy đủ ngày bắt đầu và ngày kết thúc.");
+                return View("Index", new List<NewsArticle>());
+            }
+
+            ViewBag.StartDate = startDate.ToString("yyyy-MM-dd");
+            ViewBag.EndDate = endDate.ToString("yyyy-MM-dd");
+
+            var articles = _contextArticle.GetArticles()
+                .Where(a => a.CreatedDate >= startDate && a.CreatedDate <= endDate)
+                .OrderByDescending(a => a.CreatedDate)
+                .ToList();
+
+            return View("Index", articles); // Trả về danh sách bài viết tìm được
+        }
+        public IActionResult MyArticles()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                return RedirectToAction("Index"); 
+            }
+
+            short userId = short.Parse(userIdClaim);
+
+            var myArticles = _contextArticle.GetArticles()
+                .Where(a => a.CreatedById == userId)
+                .OrderByDescending(a => a.CreatedDate)
+                .ToList();
+
+            return View("Index", myArticles); 
         }
 
     }
