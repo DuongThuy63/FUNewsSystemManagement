@@ -34,46 +34,10 @@ namespace FUNewsManagementSystem.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> Login(SystemAccount model)
-        {/*
-            if (ModelState.IsValid)
-            {
-                var user = _contextAccount.GetAccountByEmail(model.AccountEmail);
-
-                if (user != null && user.AccountPassword == model.AccountPassword)
-                {
-
-                    // Lưu thông tin đăng nhập vào session
-                    HttpContext.Session.SetString("UserId", user.AccountId.ToString());
-                    HttpContext.Session.SetString("Username", user.AccountName);
-                    //HttpContext.Session.SetString("UserRole", user.AccountRole?.ToString() ?? "0");
-                    HttpContext.Session.SetInt32("UserRole", user.AccountRole ?? 0);
-                    Console.WriteLine("UserRole in Session: " + HttpContext.Session.GetInt32("UserRole"));
-                    Console.WriteLine("UserRole Set: " + user.AccountRole);
-                    // Kiểm tra quyền (Role)
-                    if (user.AccountRole == 2)
-                    {
-                        return RedirectToAction("Index", "Articles"); 
-                    }
-                    else if (user.AccountRole == 3)
-                    {
-                        return RedirectToAction("Dashboard", "Admin");; 
-                    }
-                   
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
-            }
-
-            return View(model);*/
-
-
-            if (!ModelState.IsValid)
+        {
+           /* if (!ModelState.IsValid)
             {
                 return View(model);
-
-
             }
 
             var adminEmail = _configuration["AdminAccount:Email"];
@@ -101,8 +65,65 @@ namespace FUNewsManagementSystem.Controllers
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            return RedirectToAction("Index", "Home");*/
+     
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var adminEmail = _configuration["AdminAccount:Email"];
+            var adminPassword = _configuration["AdminAccount:Password"];
+
+            if (model.AccountEmail == adminEmail && model.AccountPassword == adminPassword)
+            {
+                HttpContext.Session.SetString("UserId", "0");
+                HttpContext.Session.SetString("UserName", "Admin");
+                HttpContext.Session.SetString("Role", "Admin");
+
+                var adminClaims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, "Admin"),
+            new Claim(ClaimTypes.Email, adminEmail),
+            new Claim(ClaimTypes.Role, "Admin"),
+            new Claim(ClaimTypes.NameIdentifier, "0") // Thêm UserId vào Claims
+        };
+
+                var adminIdentity = new ClaimsIdentity(adminClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var adminPrincipal = new ClaimsPrincipal(adminIdentity);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, adminPrincipal);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            var user = _contextAccount.GetAccountByEmail(model.AccountEmail);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Tài khoản không tồn tại.");
+                return View(model);
+            }
+
+            HttpContext.Session.SetString("UserId", user.AccountId.ToString());
+            HttpContext.Session.SetString("UserName", user.AccountName);
+            HttpContext.Session.SetString("Role", user.AccountRole == 2 ? "Lecturer" : "Staff");
+
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Name, user.AccountName),
+        new Claim(ClaimTypes.Email, user.AccountEmail),
+        new Claim(ClaimTypes.Role, user.AccountRole == 2 ? "Lecturer" : "Staff"),
+        new Claim(ClaimTypes.NameIdentifier, user.AccountId.ToString()) // Thêm UserId vào Claims
+    };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
             return RedirectToAction("Index", "Home");
         }
+
+        
 
         // GET: SystemAccounts
         public async Task<IActionResult> Index()

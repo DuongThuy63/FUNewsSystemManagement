@@ -69,8 +69,21 @@
             @Html.DisplayNameFor(model => model.CreatedBy)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedBy.AccountId)
+            @Html.DisplayFor(model => model.CreatedById)
         </dd>
+        <ul>
+            @if (Model.Tags != null && Model.Tags.Any())
+            {
+                @foreach (var tag in Model.Tags)
+                {
+                    <li>@tag.TagName</li>
+                }
+            }
+            else
+            {
+                <p>No tags assigned.</p>
+            }
+        </ul>
     </dl>
     
     <form asp-action="Delete">

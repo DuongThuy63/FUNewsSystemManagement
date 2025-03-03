@@ -10,5 +10,6 @@ namespace Repositories
     public interface ITagRepository
     {
         List<Tag> GetTags();
+        void addTag(Tag tag);
     }
 }

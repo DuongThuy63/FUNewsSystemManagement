@@ -11,5 +11,7 @@ namespace Repositories
     public class TagRepository : ITagRepository
     {
         public List<Tag> GetTags() => TagDAO.GetTag();
+
+        public void addTag(Tag tag) => TagDAO.AddTag(tag);
     }
 }

@@ -20,10 +20,12 @@ namespace FUNewsManagementSystem.Controllers
         private readonly INewsArticleService _contextArticle;
         private readonly ICategoryService _contextCategory;
         private readonly IAccountService _contextAccount;
-        public NewsArticlesController(INewsArticleService contextArticle, ICategoryService contextCategory)
+        private readonly ITagService _contextTag;
+        public NewsArticlesController(INewsArticleService contextArticle, ICategoryService contextCategory, ITagService contextTag)
         {
             _contextArticle = contextArticle;
             _contextCategory = contextCategory;
+            _contextTag = contextTag;
         }
 
         [Authorize(Roles = "Admin,Lecturer,Staff")]
@@ -61,7 +63,7 @@ namespace FUNewsManagementSystem.Controllers
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryDesciption");
-            
+            ViewBag.Tags = _contextTag.GetTags().ToList();
             return View();
         }
 
@@ -72,21 +74,69 @@ namespace FUNewsManagementSystem.Controllers
         [Authorize(Roles = "Admin,Staff")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NewsArticleId, NewsTitle,Headline,NewsContent,NewsSource,CategoryId,NewsStatus,CreatedByID,CreatedDate,ModifiedDate")] NewsArticle newsArticle)
+        public async Task<IActionResult> Create(
+            [Bind("NewsArticleId, NewsTitle, Headline, NewsContent, NewsSource, CategoryId, NewsStatus, CreatedByID, CreatedDate, ModifiedDate")]
+            NewsArticle newsArticle,
+            List<int> SelectedTagIds,
+            string NewsTag)
         {
-            newsArticle.CreatedById = 3;
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                ModelState.AddModelError("", "Không tìm thấy thông tin người dùng.");
+                return View(newsArticle);
+            }
+
+            newsArticle.CreatedById = short.Parse(userIdClaim);
             newsArticle.CreatedDate = DateTime.Now;
+
             if (ModelState.IsValid)
             {
+               
+                if (!string.IsNullOrEmpty(NewsTag))
+                {
+                    var tagNames = NewsTag.Split(',')
+                        .Select(t => t.Trim())
+                        .Where(t => !string.IsNullOrEmpty(t))
+                        .Distinct()
+                        .ToList();
+
+                    foreach (var tagName in tagNames)
+                    {
+                        var existingTag = _contextTag.GetTags().FirstOrDefault(t => t.TagName == tagName);
+                        if (existingTag == null)
+                        {
+                            
+                            CreateTag(tagName);
+
+                        
+                            existingTag = _contextTag.GetTags().FirstOrDefault(t => t.TagName == tagName);
+                        }
+
+                        if (existingTag != null)
+                        {
+                            SelectedTagIds.Add(existingTag.TagId);
+                        }
+                    }
+                }
+
+                
+                var selectedTags = _contextTag.GetTags().Where(t => SelectedTagIds.Contains(t.TagId)).ToList();
+                 newsArticle.Tags = selectedTags;
+
+                
                 _contextArticle.SaveArticle(newsArticle);
 
                 return RedirectToAction(nameof(Index));
             }
 
-
+       
             ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryDesciption", newsArticle.CategoryId);
+            ViewBag.Tags = _contextTag.GetTags().ToList();
+
             return View(newsArticle);
         }
+
 
 
         // GET: NewsArticles/Edit/5
@@ -97,34 +147,87 @@ namespace FUNewsManagementSystem.Controllers
                 return NotFound();
             }
 
-            var newsArticle = await _context.NewsArticle.FindAsync(id);
-            if (newsArticle == null)
+            var article = _contextArticle.GetNewsArticleById(id);
+            if (article == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryDesciption", newsArticle.CategoryId);
-            ViewData["CreatedById"] = new SelectList(_context.SystemAccount, "AccountId", "AccountId", newsArticle.CreatedById);
-            return View(newsArticle);
+
+            // Danh sách Category
+            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryName", article.CategoryId);
+            ViewBag.Tags = _contextTag.GetTags();
+            return View(article);
         }
+
 
         // POST: NewsArticles/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("NewsArticleId,NewsTitle,Headline,CreatedDate,NewsContent,NewsSource,CategoryId,NewsStatus,CreatedById,UpdatedById,ModifiedDate")] NewsArticle newsArticle)
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, [Bind("NewsArticleId,NewsTitle,Headline,CreatedDate,NewsContent,NewsSource,CategoryId,NewsStatus,CreatedById,UpdatedById,ModifiedDate")] NewsArticle newsArticle, List<int> SelectedTagIds, string? NewTags)
         {
             if (id != newsArticle.NewsArticleId)
             {
                 return NotFound();
             }
 
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                ModelState.AddModelError("", "Không tìm thấy thông tin người dùng.");
+                return View(newsArticle);
+            }
+
+            newsArticle.UpdatedById = short.Parse(userIdClaim);
+            newsArticle.ModifiedDate = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(newsArticle);
-                    await _context.SaveChangesAsync();
+                    // 🔹 Lấy bài viết cũ
+                    var existingArticle = _contextArticle.GetNewsArticleById(newsArticle.NewsArticleId);
+                    if (existingArticle == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // 🔹 Nếu có nhập Tag mới thì xử lý
+                    if (!string.IsNullOrEmpty(NewTags))
+                    {
+                        var tagNames = NewTags.Split(',')
+                            .Select(t => t.Trim())
+                            .Where(t => !string.IsNullOrEmpty(t))
+                            .ToList();
+
+                        foreach (var tagName in tagNames)
+                        {
+                            var existingTag = _contextTag.GetTags().FirstOrDefault(t => t.TagName == tagName);
+                            if (existingTag == null)
+                            {
+
+                                CreateTag(tagName);
+
+
+                                existingTag = _contextTag.GetTags().FirstOrDefault(t => t.TagName == tagName);
+                            }
+
+                            if (existingTag != null)
+                            {
+                                SelectedTagIds.Add(existingTag.TagId);
+                            }
+                        }
+                    }
+                    
+
+                    // 🔹 Cập nhật danh sách Tags cho bài viết
+                    var selectedTags = _contextTag.GetTags().Where(t => SelectedTagIds.Contains(t.TagId)).ToList();
+                    newsArticle.Tags = selectedTags;
+
+                    // 🔹 Cập nhật bài viết
+                    _contextArticle.UpdateArticle(newsArticle);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -139,10 +242,13 @@ namespace FUNewsManagementSystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryDesciption", newsArticle.CategoryId);
-            ViewData["CreatedById"] = new SelectList(_context.SystemAccount, "AccountId", "AccountId", newsArticle.CreatedById);
+
+            ViewBag.Tags = _contextTag.GetTags();
+            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryDesciption", newsArticle.CategoryId);
+
             return View(newsArticle);
         }
+
 
         // GET: NewsArticles/Delete/5
         public async Task<IActionResult> Delete(string id)
@@ -152,15 +258,13 @@ namespace FUNewsManagementSystem.Controllers
                 return NotFound();
             }
 
-            var newsArticle = await _context.NewsArticle
-                .Include(n => n.Category)
-                .Include(n => n.CreatedBy)
-                .FirstOrDefaultAsync(m => m.NewsArticleId == id);
+            var newsArticle = _contextArticle.GetNewsArticleById(id);
             if (newsArticle == null)
             {
                 return NotFound();
             }
-
+            ViewBag.Tags = _contextTag.GetTags();
+            ViewData["CategoryId"] = new SelectList(_contextCategory.GetCategories(), "CategoryId", "CategoryDesciption", newsArticle.CategoryId);
             return View(newsArticle);
         }
 
@@ -169,13 +273,12 @@ namespace FUNewsManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var newsArticle = await _context.NewsArticle.FindAsync(id);
-            if (newsArticle != null)
+            var article = _contextArticle.GetNewsArticleById(id);
+            if (article != null)
             {
-                _context.NewsArticle.Remove(newsArticle);
+                _contextArticle.DeleteArticle(article);
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -183,5 +286,28 @@ namespace FUNewsManagementSystem.Controllers
         {
             return _context.NewsArticle.Any(e => e.NewsArticleId == id);
         }
+
+        public IActionResult CreateTag(string tagName)
+        {
+            if (!string.IsNullOrEmpty(tagName))
+            {
+                var existingTag = _contextTag.GetTags().FirstOrDefault(t => t.TagName == tagName);
+                if (existingTag == null)
+                {
+                    
+                    int newTagId = _contextTag.GetTags().Any() ? _contextTag.GetTags().Max(t => t.TagId) + 1 : 1;
+
+                    var newTag = new Tag    
+                    {
+                        TagId = newTagId, 
+                        TagName = tagName
+                    };
+
+                    _contextTag.AddTag(newTag);
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

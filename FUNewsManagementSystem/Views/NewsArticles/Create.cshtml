@@ -6,7 +6,7 @@
 @{
     var randomId = "Article-" + Guid.NewGuid().ToString("N").Substring(0, 6);
     var currentDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-    var userId = 3;
+   
 }
 <h1>Create</h1>
 
@@ -17,10 +17,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" name="NewsArticleId" value="@randomId" />
-            
             <input type="hidden" name="ModifiedDate" value="@currentDate" />
-          
-
 
             <div class="form-group">
                 <label asp-for="NewsTitle" class="control-label"></label>
@@ -61,7 +58,24 @@
                 <input asp-for="UpdatedById" class="form-control" />
                 <span asp-validation-for="UpdatedById" class="text-danger"></span>
             </div> *@
-           
+            <div class="form-group">
+                <label>Select Tags:</label>
+                <div class="row">
+                    @foreach (var tag in ViewBag.Tags)
+                    {
+                        <div class="col-md-3">
+                            <input type="checkbox" name="SelectedTagIds" value="@tag.TagId" />
+                            <label>@tag.TagName</label>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Thêm Tag mới (cách nhau bởi dấu phẩy):</label>
+                <input type="text" name="NewsTag" class="form-control" placeholder="VD: Công nghệ, Khoa học" />
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

@@ -22,5 +22,10 @@ namespace Services
         {
             return iTagRepository.GetTags();
         }
+
+        public void AddTag(Tag tag)
+        {
+             iTagRepository.addTag(tag);
+        }
     }
 }

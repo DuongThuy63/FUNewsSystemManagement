@@ -24,5 +24,13 @@ namespace DataAccessObjects
             }
             return listTags;
         }
+        public static void AddTag(Tag tag)
+        {
+
+            using var context = new FunewsManagementContext();
+
+            context.Tags.Add(tag);
+            context.SaveChanges();
+        }
     }
 }
